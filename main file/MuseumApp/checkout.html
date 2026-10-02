@@ -1,27 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wolfsonian Check Out</title>
-  <meta name="description" content="Wolfsonian map and ticket purchasing service." />
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="canonical" href="https://Wolfsoniancheckout.com/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Wolfsonian Check In" />
-  <meta property="og:title" content="Wolfsonian Check In" />
-  <meta property="og:description" content="Wolfsonian map and ticket purchasing service." />
-  <meta property="og:url" content="https://Wolfsoniancheckout.com/" />
-  <meta property="og:image" content="https://Wolfsoniancheckout.com/og-image.png" />
-  <script type="application/ld+json">
-  </script>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wolfsonian–FIU | Ticket Checkout</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  
-  <li>
-        <a href="questionare.html"> Purchase </a>
-      <ul>
 
+<body>
+    <main class="checkout-page">
+
+        <section class="page-hero">
+            <p class="eyebrow">THE WOLFSONIAN–FIU</p>
+            <h1>Ticket Checkout</h1>
+            <p>Select your admission type and complete your purchase.</p>
+        </section>
+
+        <section class="checkout-grid">
+
+            <div class="checkout-card">
+                <h2>Admission</h2>
+                <p class="checkout-description">
+                    Choose the admission option that applies to you.
+                </p>
+
+                <label for="ticket-type">Admission Type</label>
+
+                <select id="ticket-type" class="checkout-field">
+                    <option value="adult">Adult — $12</option>
+                    <option value="senior">Senior — $8</option>
+                    <option value="student">Student with ID — $8</option>
+                    <option value="child">Child 6–18 — $8</option>
+                    <option value="member">Member — FREE</option>
+                    <option value="florida">Florida Resident — FREE</option>
+                    <option value="disability">Visitor with Disability + Caregiver — FREE</option>
+                    <option value="under6">Child Under 6 — FREE</option>
+                    <option value="sus">Florida State University System Student/Faculty/Staff — FREE</option>
+                    <option value="military">Active U.S. Military/Veteran — FREE</option>
+                    <option value="friday">Free Friday — FREE</option>
+                </select>
+
+                <div class="free-friday">
+                    <strong>Free Fridays</strong>
+                    <p>Admission is free every Friday from 6–9 PM.</p>
+                </div>
+
+                <div class="price-display">
+                    <span>Total</span>
+                    <strong id="ticket-price">$12.00</strong>
+                </div>
+            </div>
+
+            <div class="checkout-card">
+                <h2>Payment Information</h2>
+                <p class="checkout-description">
+                    Enter your payment information below.
+                </p>
+
+                <form id="payment-form">
+                    <div class="checkout-field-group">
+                        <label for="card-name">Cardholder Name</label>
+                        <input type="text" id="card-name" class="checkout-field"
+                               placeholder="John Doe" required>
+                    </div>
+
+                    <div class="checkout-field-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" class="checkout-field"
+                               placeholder="1234 5678 9012 3456" maxlength="19" required>
+                    </div>
+
+                    <div class="checkout-row">
+                        <div class="checkout-field-group">
+                            <label for="expiration">Expiration</label>
+                            <input type="text" id="expiration" class="checkout-field"
+                                   placeholder="MM/YY" maxlength="5" required>
+                        </div>
+
+                        <div class="checkout-field-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" class="checkout-field"
+                                   placeholder="123" maxlength="4" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn checkout-pay">Pay Now</button>
+                </form>
+
+                <div id="payment-success" class="payment-success" style="display: none;">
+                    <div class="success-icon">✓</div>
+                    <h2>Payment Successful</h2>
+                    <p>Your Wolfsonian–FIU ticket has been purchased successfully.</p>
+                    <a href="recommendation.html" class="btn">Redeem Ticket</a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="main.js"></script>
 </body>
 </html>
