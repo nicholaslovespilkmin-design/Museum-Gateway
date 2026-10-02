@@ -99,5 +99,38 @@
     </main>
 
     <script src="main.js"></script>
+
+    <script>
+        // Ticket prices
+        const ticketPrices = {
+            adult: 12,
+            senior: 8,
+            student: 8,
+            child: 8,
+            member: 0,
+            florida: 0,
+            disability: 0,
+            under6: 0,
+            sus: 0,
+            military: 0,
+            friday: 0
+        };
+
+        // Get the dropdown and price display
+        const ticketType = document.getElementById("ticket-type");
+        const ticketPrice = document.getElementById("ticket-price");
+
+        // Change the price when the admission type changes
+        ticketType.addEventListener("change", function () {
+            const price = ticketPrices[this.value];
+
+            if (price === 0) {
+                ticketPrice.textContent = "FREE";
+            } else {
+                ticketPrice.textContent = "$" + price.toFixed(2);
+            }
+        });
+    </script>
+
 </body>
 </html>
