@@ -65,6 +65,12 @@
                     </div>
 
                     <div class="checkout-field-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="checkout-field"
+                               placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="checkout-field-group">
                         <label for="card-number">Card Number</label>
                         <input type="text" id="card-number" class="checkout-field"
                                placeholder="1234 5678 9012 3456" maxlength="19" required>
@@ -99,6 +105,7 @@
     </main>
 
     <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <script>
         // Ticket prices
@@ -129,6 +136,33 @@
             } else {
                 ticketPrice.textContent = "$" + price.toFixed(2);
             }
+        });
+
+        // EmailJS settings — replace with your own from emailjs.com
+        const EMAILJS_PUBLIC_KEY = "lF5ZcuoUx4YUYQm9n";
+        const EMAILJS_SERVICE_ID = "service_zx94vmi";
+        const EMAILJS_TEMPLATE_ID = "template_11206yp";
+
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+        // Send a confirmation email, then go to the questionnaire
+        document.getElementById("payment-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const payButton = this.querySelector("button[type=submit]");
+            payButton.disabled = true;
+            payButton.textContent = "Processing…";
+
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                to_email: document.getElementById("email").value,
+                message: "confirmation"
+            })
+            .catch(function (error) {
+                console.error("Confirmation email failed:", error);
+            })
+            .finally(function () {
+                window.location.href = "questionare.html";
+            });
         });
     </script>
 

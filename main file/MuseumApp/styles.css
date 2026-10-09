@@ -405,3 +405,28 @@ h2 { font-family: var(--font-serif); color: var(--navy); font-size: clamp(1.7rem
   .nav-links a.btn { text-align: center; margin-top: 14px; border-bottom: none; }
   .service-row { grid-template-columns: 1fr; gap: 12px; }
 }
+
+/* ---------- Shared page headings ---------- */
+.eyebrow { text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.72rem; color: var(--blue); font-weight: 700; margin: 0 0 10px; }
+.page-hero h1,
+.questionnaire h1 { font-family: var(--font-serif); color: var(--navy); font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.1; }
+.return-note { color: var(--muted); font-size: 0.92rem; }
+
+/* ---------- Questionnaire ---------- */
+.questionnaire {
+  width: calc(100% - 32px);
+  max-width: 640px;
+  margin: 60px auto;
+  padding: 44px 32px;
+  text-align: center;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+.questionnaire h1 { margin: 0 0 24px; }
+.questionnaire h2 { font-size: clamp(1.3rem, 3vw, 1.7rem); }
+#buttons { display: flex; gap: 14px; justify-content: center; }
+#buttons .btn { border: 1.5px solid var(--navy); cursor: pointer; font-family: inherit; min-width: 110px; }
+#buttons .btn-ghost:hover { border-color: var(--navy); }
+#result strong { display: inline-block; margin-top: 8px; font-family: var(--font-serif); color: var(--navy); font-size: 1.4rem; padding: 14px 22px; background: var(--sky); border-radius: var(--radius); }
