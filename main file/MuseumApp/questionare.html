@@ -12,7 +12,20 @@
 
 <body>
 
-    <main class="questionnaire">
+    <main class="questionnaire" id="ticket-step">
+
+        <p class="eyebrow">THE WOLFSONIAN–FIU</p>
+        <h1>Your Ticket</h1>
+        <p class="ticket-note">Show this QR code at the entrance.</p>
+
+        <div id="qrcode" class="qr-box"></div>
+        <p id="ticket-number" class="ticket-number"></p>
+
+        <button class="btn" onclick="showQuestionnaire()">Continue</button>
+
+    </main>
+
+    <main class="questionnaire" id="questionnaire-step" style="display: none;">
 
         <p class="eyebrow">THE WOLFSONIAN–FIU</p>
         <h1>Find Your Exhibit</h1>
@@ -30,7 +43,27 @@
 
     </main>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="questionnaire.js"></script>
+
+    <script>
+        // Make a ticket number and show it as a QR code
+        const ticketNumber = "WOLF-" + Date.now().toString(36).toUpperCase();
+        document.getElementById("ticket-number").textContent = "Ticket " + ticketNumber;
+
+        new QRCode(document.getElementById("qrcode"), {
+            text: "The Wolfsonian-FIU Ticket " + ticketNumber,
+            width: 200,
+            height: 200,
+            colorDark: "#14294d",
+            colorLight: "#ffffff"
+        });
+
+        function showQuestionnaire() {
+            document.getElementById("ticket-step").style.display = "none";
+            document.getElementById("questionnaire-step").style.display = "block";
+        }
+    </script>
 
 </body>
 

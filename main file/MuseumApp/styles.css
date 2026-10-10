@@ -430,3 +430,10 @@ h2 { font-family: var(--font-serif); color: var(--navy); font-size: clamp(1.7rem
 #buttons .btn { border: 1.5px solid var(--navy); cursor: pointer; font-family: inherit; min-width: 110px; }
 #buttons .btn-ghost:hover { border-color: var(--navy); }
 #result strong { display: inline-block; margin-top: 8px; font-family: var(--font-serif); color: var(--navy); font-size: 1.4rem; padding: 14px 22px; background: var(--sky); border-radius: var(--radius); }
+
+/* ---------- Ticket QR code ---------- */
+.ticket-note { color: var(--muted); margin: 0 0 24px; }
+.qr-box { display: inline-block; padding: 16px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.qr-box img, .qr-box canvas { display: block; }
+.ticket-number { font-family: var(--font-serif); color: var(--navy); font-size: 1.1rem; letter-spacing: 0.06em; margin: 18px 0 24px; }
+.questionnaire > .btn { border: none; cursor: pointer; font-family: inherit; }
