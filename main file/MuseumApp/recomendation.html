@@ -23,9 +23,37 @@
   <main class="page-hero">
     <p class="eyebrow">THE WOLFSONIAN–FIU</p>
     <h1>Enjoy Your Visit</h1>
+    <div id="result" class="recommendation-result"></div>
     <p><a href="index.html" class="btn">Back to Map</a></p>
     <p class="return-note">Returning automatically in 30 seconds.</p>
   </main>
+
+  <script>
+    // Show the questionnaire result passed from questionare.html
+    const params = new URLSearchParams(window.location.search);
+    const exhibit = params.get("exhibit");
+    const exhibitLocation = params.get("location");
+
+    if (exhibit) {
+      const result = document.getElementById("result");
+
+      const label = document.createElement("p");
+      label.className = "return-note";
+      label.textContent = "Your recommended exhibit:";
+
+      const name = document.createElement("strong");
+      name.textContent = exhibit;
+
+      result.append(label, name);
+
+      if (exhibitLocation) {
+        const place = document.createElement("p");
+        place.className = "exhibit-location";
+        place.textContent = "Location: " + exhibitLocation;
+        result.append(place);
+      }
+    }
+  </script>
 
 </body>
 
