@@ -145,7 +145,7 @@
 
         emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
-        // Send a confirmation email, then go to the questionnaire
+        // Send a confirmation email with the ticket QR code, then go to the questionnaire
         document.getElementById("payment-form").addEventListener("submit", function (e) {
             e.preventDefault();
 
@@ -153,15 +153,23 @@
             payButton.disabled = true;
             payButton.textContent = "Processing…";
 
+            // Make the ticket here so the emailed QR code matches the one on screen
+            const ticketNumber = "WOLF-" + Date.now().toString(36).toUpperCase();
+            const qrText = "The Wolfsonian-FIU Ticket " + ticketNumber;
+            const qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
+                encodeURIComponent(qrText);
+
             emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                 to_email: document.getElementById("email").value,
-                message: "confirmation"
+                message: "confirmation",
+                ticket_number: ticketNumber,
+                qr_code_url: qrCodeUrl
             })
             .catch(function (error) {
                 console.error("Confirmation email failed:", error);
             })
             .finally(function () {
-                window.location.href = "questionare.html";
+                window.location.href = "questionare.html?ticket=" + encodeURIComponent(ticketNumber);
             });
         });
     </script>

@@ -47,8 +47,9 @@
     <script src="questionnaire.js"></script>
 
     <script>
-        // Make a ticket number and show it as a QR code
-        const ticketNumber = "WOLF-" + Date.now().toString(36).toUpperCase();
+        // Use the ticket number from checkout (the one emailed), or make one if missing
+        const ticketNumber = new URLSearchParams(window.location.search).get("ticket") ||
+            "WOLF-" + Date.now().toString(36).toUpperCase();
         document.getElementById("ticket-number").textContent = "Ticket " + ticketNumber;
 
         new QRCode(document.getElementById("qrcode"), {
