@@ -1,95 +1,74 @@
-let questionNumber = 1;
-
-function answerYes() {
-    if (questionNumber === 1) {
-        showRecommendation(
-            "Foot Notes: Shoes, Symbolism, and Society",
-            "7th Floor"
-        );
-    }
-
-    else if (questionNumber === 2) {
-        showRecommendation(
-            "Material Matters: How Synthetics Shaped a New Era",
-            "Knight Lab 3, 3rd Floor"
-        );
-    }
-
-    else if (questionNumber === 3) {
-        showRecommendation(
-            "Modern Design Across Borders",
-            "6th Floor"
-        );
-    }
-
-    else if (questionNumber === 4) {
-        showRecommendation(
-            "La Superba: Genoa and The Wolfsoniana",
-            "6th Floor"
-        );
-    }
-
-    else if (questionNumber === 5) {
-        showRecommendation(
-            "Harry Clarke and the Geneva Window",
-            "5th Floor"
-        );
-    }
-}
-
-
-function answerNo() {
-    questionNumber++;
-
-    if (questionNumber === 2) {
-        document.getElementById("question").textContent =
-            "Are you interested in materials, technology, and how things are made?";
-    }
-
-    else if (questionNumber === 3) {
-        document.getElementById("question").textContent =
-            "Are you interested in furniture, objects, and modern design?";
-    }
-
-    else if (questionNumber === 4) {
-        document.getElementById("question").textContent =
-            "Are you interested in travel, Italy, and cultural history?";
-    }
-
-    else if (questionNumber === 5) {
-        document.getElementById("question").textContent =
-            "Do you enjoy detailed artwork, literature, and unusual stories?";
-    }
-
-    else {
-        showRecommendation(
-            "Our Featured Exhibition"
-        );
-    }
-}
-
+"use strict";
 
 // Locations from wolfsonian.org/whats-on/exhibitions+installations/
-function showRecommendation(exhibit, location) {
-    document.getElementById("question").textContent =
-        "We think you'll enjoy:";
+// Shared with recommendation.js, which only accepts an id from this list.
+const EXHIBITS = Object.freeze({
+    "foot-notes": { name: "Foot Notes: Shoes, Symbolism, and Society", location: "7th Floor" },
+    "material-matters": { name: "Material Matters: How Synthetics Shaped a New Era", location: "Knight Lab 3, 3rd Floor" },
+    "modern-design": { name: "Modern Design Across Borders", location: "6th Floor" },
+    "la-superba": { name: "La Superba: Genoa and The Wolfsoniana", location: "6th Floor" },
+    "harry-clarke": { name: "Harry Clarke and the Geneva Window", location: "5th Floor" },
+    "featured": { name: "Our Featured Exhibition", location: "" }
+});
 
-    let html = "<strong>" + exhibit + "</strong>";
+(function () {
+    const questionEl = document.getElementById("question");
+    if (!questionEl) return; // loaded on a page without the questionnaire
 
-    if (location) {
-        html += "<p class=\"exhibit-location\">Location: " + location + "</p>";
+    // Each question and the exhibit a "Yes" answer leads to
+    const QUESTIONS = [
+        { text: "Are you interested in fashion, identity, and personal style?", exhibit: "foot-notes" },
+        { text: "Are you interested in materials, technology, and how things are made?", exhibit: "material-matters" },
+        { text: "Are you interested in furniture, objects, and modern design?", exhibit: "modern-design" },
+        { text: "Are you interested in travel, Italy, and cultural history?", exhibit: "la-superba" },
+        { text: "Do you enjoy detailed artwork, literature, and unusual stories?", exhibit: "harry-clarke" }
+    ];
+
+    let questionIndex = 0;
+
+    function answerYes() {
+        showRecommendation(QUESTIONS[questionIndex].exhibit);
     }
 
-    // Carry the result to the final page so it stays on screen
-    let nextPage = "recomendation.html?exhibit=" + encodeURIComponent(exhibit);
-
-    if (location) {
-        nextPage += "&location=" + encodeURIComponent(location);
+    function answerNo() {
+        questionIndex++;
+        if (questionIndex < QUESTIONS.length) {
+            questionEl.textContent = QUESTIONS[questionIndex].text;
+        } else {
+            showRecommendation("featured");
+        }
     }
 
-    html += "<p><a href=\"" + nextPage + "\" class=\"btn\">Continue</a></p>";
+    function showRecommendation(exhibitId) {
+        const exhibit = EXHIBITS[exhibitId];
+        questionEl.textContent = "We think you'll enjoy:";
 
-    document.getElementById("result").innerHTML = html;
+        // Built with DOM methods (no innerHTML) so text can never be run as HTML
+        const name = document.createElement("strong");
+        name.textContent = exhibit.name;
+        const parts = [name];
 
-    document.getElementById("buttons").style.display = "none";
-}
+        if (exhibit.location) {
+            const place = document.createElement("p");
+            place.className = "exhibit-location";
+            place.textContent = "Location: " + exhibit.location;
+            parts.push(place);
+        }
+
+        // Only the exhibit id goes in the URL; the next page looks the details up itself
+        const link = document.createElement("a");
+        link.href = "recomendation.html?exhibit=" + encodeURIComponent(exhibitId);
+        link.className = "btn";
+        link.textContent = "Continue";
+        const linkWrap = document.createElement("p");
+        linkWrap.append(link);
+        parts.push(linkWrap);
+
+        document.getElementById("result").replaceChildren(...parts);
+        document.getElementById("buttons").style.display = "none";
+    }
+
+    questionEl.textContent = QUESTIONS[0].text;
+    document.getElementById("yes-button").addEventListener("click", answerYes);
+    document.getElementById("no-button").addEventListener("click", answerNo);
+})();

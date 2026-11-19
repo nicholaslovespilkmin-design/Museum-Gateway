@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'" />
+  <meta name="referrer" content="no-referrer" />
   <title>Wolfsonian Area Recomendation</title>
   <meta name="description" content="What Wolfsonian Area Would Be Best For You." />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -13,8 +16,6 @@
   <meta property="og:description" content="What Wolfsonian Area Would Be Best For You." />
   <meta property="og:url" content="https://Wolfsonianrecomend.com/" />
   <meta property="og:image" content="https://Wolfsonianrecomend.com/og-image.png" />
-  <script type="application/ld+json">
-  </script>
   <meta http-equiv="refresh" content="30; url=index.html" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -28,32 +29,8 @@
     <p class="return-note">Returning automatically in 30 seconds.</p>
   </main>
 
-  <script>
-    // Show the questionnaire result passed from questionare.html
-    const params = new URLSearchParams(window.location.search);
-    const exhibit = params.get("exhibit");
-    const exhibitLocation = params.get("location");
-
-    if (exhibit) {
-      const result = document.getElementById("result");
-
-      const label = document.createElement("p");
-      label.className = "return-note";
-      label.textContent = "Your recommended exhibit:";
-
-      const name = document.createElement("strong");
-      name.textContent = exhibit;
-
-      result.append(label, name);
-
-      if (exhibitLocation) {
-        const place = document.createElement("p");
-        place.className = "exhibit-location";
-        place.textContent = "Location: " + exhibitLocation;
-        result.append(place);
-      }
-    }
-  </script>
+  <script src="questionnaire.js"></script>
+  <script src="recommendation.js"></script>
 
 </body>
 

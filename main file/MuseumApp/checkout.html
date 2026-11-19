@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://api.emailjs.com; object-src 'none'; base-uri 'none'; form-action 'self'">
+    <meta name="referrer" content="no-referrer">
     <title>The Wolfsonian–FIU | Ticket Checkout</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -57,36 +60,36 @@
                     Enter your payment information below.
                 </p>
 
-                <form id="payment-form">
+                <form id="payment-form" autocomplete="off" novalidate>
                     <div class="checkout-field-group">
                         <label for="card-name">Cardholder Name</label>
                         <input type="text" id="card-name" class="checkout-field"
-                               placeholder="John Doe" required>
+                               placeholder="John Doe" maxlength="100" autocomplete="off" required>
                     </div>
 
                     <div class="checkout-field-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" class="checkout-field"
-                               placeholder="you@example.com" required>
+                               placeholder="you@example.com" maxlength="254" autocomplete="email" required>
                     </div>
 
                     <div class="checkout-field-group">
                         <label for="card-number">Card Number</label>
                         <input type="text" id="card-number" class="checkout-field"
-                               placeholder="1234 5678 9012 3456" maxlength="19" required>
+                               placeholder="1234 5678 9012 3456" maxlength="23" inputmode="numeric" autocomplete="off" spellcheck="false" required>
                     </div>
 
                     <div class="checkout-row">
                         <div class="checkout-field-group">
                             <label for="expiration">Expiration</label>
                             <input type="text" id="expiration" class="checkout-field"
-                                   placeholder="MM/YY" maxlength="5" required>
+                                   placeholder="MM/YY" maxlength="5" inputmode="numeric" autocomplete="off" required>
                         </div>
 
                         <div class="checkout-field-group">
                             <label for="cvv">CVV</label>
                             <input type="text" id="cvv" class="checkout-field"
-                                   placeholder="123" maxlength="4" required>
+                                   placeholder="123" maxlength="4" inputmode="numeric" autocomplete="off" required>
                         </div>
                     </div>
 
@@ -104,75 +107,10 @@
         </section>
     </main>
 
-    <script src="main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-    <script>
-        // Ticket prices
-        const ticketPrices = {
-            adult: 12,
-            senior: 8,
-            student: 8,
-            child: 8,
-            member: 0,
-            florida: 0,
-            disability: 0,
-            under6: 0,
-            sus: 0,
-            military: 0,
-            friday: 0
-        };
-
-        // Get the dropdown and price display
-        const ticketType = document.getElementById("ticket-type");
-        const ticketPrice = document.getElementById("ticket-price");
-
-        // Change the price when the admission type changes
-        ticketType.addEventListener("change", function () {
-            const price = ticketPrices[this.value];
-
-            if (price === 0) {
-                ticketPrice.textContent = "FREE";
-            } else {
-                ticketPrice.textContent = "$" + price.toFixed(2);
-            }
-        });
-
-        // EmailJS settings — replace with your own from emailjs.com
-        const EMAILJS_PUBLIC_KEY = "lF5ZcuoUx4YUYQm9n";
-        const EMAILJS_SERVICE_ID = "service_zx94vmi";
-        const EMAILJS_TEMPLATE_ID = "template_11206yp";
-
-        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
-        // Send a confirmation email with the ticket QR code, then go to the questionnaire
-        document.getElementById("payment-form").addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const payButton = this.querySelector("button[type=submit]");
-            payButton.disabled = true;
-            payButton.textContent = "Processing…";
-
-            // Make the ticket here so the emailed QR code matches the one on screen
-            const ticketNumber = "WOLF-" + Date.now().toString(36).toUpperCase();
-            const qrText = "The Wolfsonian-FIU Ticket " + ticketNumber;
-            const qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" +
-                encodeURIComponent(qrText);
-
-            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                to_email: document.getElementById("email").value,
-                message: "confirmation",
-                ticket_number: ticketNumber,
-                qr_code_url: qrCodeUrl
-            })
-            .catch(function (error) {
-                console.error("Confirmation email failed:", error);
-            })
-            .finally(function () {
-                window.location.href = "questionare.html?ticket=" + encodeURIComponent(ticketNumber);
-            });
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"
+            integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS"
+            crossorigin="anonymous"></script>
+    <script src="checkout.js"></script>
 
 </body>
 </html>
