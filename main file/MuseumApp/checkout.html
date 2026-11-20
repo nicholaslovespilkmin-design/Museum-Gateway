@@ -55,22 +55,161 @@
             </div>
 
             <div class="checkout-card">
-                <h2>Payment Information</h2>
-                <p class="checkout-description">
+                <h2 id="form-heading">Payment Information</h2>
+                <p class="checkout-description" id="form-description">
                     Enter your payment information below.
                 </p>
 
                 <form id="payment-form" autocomplete="off" novalidate>
                     <div class="checkout-field-group">
-                        <label for="card-name">Cardholder Name</label>
-                        <input type="text" id="card-name" class="checkout-field"
-                               placeholder="John Doe" maxlength="100" autocomplete="off" required>
-                    </div>
-
-                    <div class="checkout-field-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" class="checkout-field"
                                placeholder="you@example.com" maxlength="254" autocomplete="email" required>
+                    </div>
+
+                    <!-- Free admission: proof of eligibility. Only the group for the
+                         selected admission type is shown (see checkout.js). -->
+                    <fieldset class="eligibility" data-admission="member" hidden>
+                        <legend>Membership Details</legend>
+                        <div class="checkout-field-group">
+                            <label for="member-name">Name on Membership</label>
+                            <input type="text" id="member-name" class="checkout-field"
+                                   maxlength="100" autocomplete="off" required>
+                        </div>
+                        <div class="checkout-field-group">
+                            <label for="member-id">Membership Number</label>
+                            <input type="text" id="member-id" class="checkout-field"
+                                   placeholder="e.g. 10023456" maxlength="12" autocomplete="off" spellcheck="false" required>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="eligibility" data-admission="florida" hidden>
+                        <legend>Florida Residency</legend>
+                        <div class="checkout-field-group">
+                            <label for="fl-name">Full Name (as shown on your ID)</label>
+                            <input type="text" id="fl-name" class="checkout-field"
+                                   maxlength="100" autocomplete="off" required>
+                        </div>
+                        <div class="checkout-field-group">
+                            <label for="fl-id">Florida Driver License or ID Card Number</label>
+                            <input type="text" id="fl-id" class="checkout-field"
+                                   placeholder="A123-456-78-901-0" maxlength="17" autocomplete="off" spellcheck="false" required>
+                        </div>
+                        <div class="checkout-field-group">
+                            <label for="fl-zip">Florida ZIP Code</label>
+                            <input type="text" id="fl-zip" class="checkout-field"
+                                   placeholder="33139" maxlength="5" inputmode="numeric" autocomplete="off" required>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="eligibility" data-admission="disability" hidden>
+                        <legend>Visitor with Disability + Caregiver</legend>
+                        <div class="checkout-field-group">
+                            <label for="dis-name">Visitor Name</label>
+                            <input type="text" id="dis-name" class="checkout-field"
+                                   maxlength="100" autocomplete="off" required>
+                        </div>
+                        <div class="checkout-field-group">
+                            <label for="dis-caregiver">Caregiver Name (optional)</label>
+                            <input type="text" id="dis-caregiver" class="checkout-field"
+                                   maxlength="100" autocomplete="off">
+                        </div>
+                        <label class="checkout-check">
+                            <input type="checkbox" id="dis-confirm" required>
+                            I confirm this ticket is for a visitor with a disability and/or their caregiver.
+                        </label>
+                    </fieldset>
+
+                    <fieldset class="eligibility" data-admission="sus" hidden>
+                        <legend>State University System Affiliation</legend>
+                        <div class="checkout-field-group">
+                            <label for="sus-name">Full Name</label>
+                            <input type="text" id="sus-name" class="checkout-field"
+                                   maxlength="100" autocomplete="off" required>
+                        </div>
+                        <div class="checkout-field-group">
+                            <label for="sus-school">Institution</label>
+                            <select id="sus-school" class="checkout-field" required>
+                                <option value="">Select your institution</option>
+                                <option>Florida A&amp;M University</option>
+                                <option>Florida Atlantic University</option>
+                                <option>Florida Gulf Coast University</option>
+                                <option>Florida International University</option>
+                                <option>Florida Polytechnic University</option>
+                                <option>Florida State University</option>
+                                <option>New College of Florida</option>
+                                <option>University of Central Florida</option>
+                                <option>University of Florida</option>
+                                <option>University of North Florida</option>
+                                <option>University of South Florida</option>
+                                <option>University of West Florida</option>
+                            </select>
+                        </div>
+                        <div class="checkout-field-group">
+                            <label for="sus-email">University Email</label>
+                            <input type="email" id="sus-email" class="checkout-field"
+                                   placeholder="you@fiu.edu" maxlength="254" autocomplete="off" required>
+                        </div>
+                        <div class="checkout-field-group">
+                            <label for="sus-id">University ID Number</label>
+                            <input type="text" id="sus-id" class="checkout-field"
+                                   maxlength="12" autocomplete="off" spellcheck="false" required>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="eligibility" data-admission="military" hidden>
+                        <legend>Military Service</legend>
+                        <div class="checkout-field-group">
+                            <label for="mil-name">Full Name</label>
+                            <input type="text" id="mil-name" class="checkout-field"
+                                   maxlength="100" autocomplete="off" required>
+                        </div>
+                        <div class="checkout-row">
+                            <div class="checkout-field-group">
+                                <label for="mil-branch">Branch</label>
+                                <select id="mil-branch" class="checkout-field" required>
+                                    <option value="">Select branch</option>
+                                    <option>Army</option>
+                                    <option>Navy</option>
+                                    <option>Air Force</option>
+                                    <option>Marine Corps</option>
+                                    <option>Coast Guard</option>
+                                    <option>Space Force</option>
+                                    <option>National Guard / Reserve</option>
+                                </select>
+                            </div>
+                            <div class="checkout-field-group">
+                                <label for="mil-status">Status</label>
+                                <select id="mil-status" class="checkout-field" required>
+                                    <option value="">Select status</option>
+                                    <option>Active Duty</option>
+                                    <option>Veteran</option>
+                                </select>
+                            </div>
+                        </div>
+                        <label class="checkout-check">
+                            <input type="checkbox" id="mil-confirm" required>
+                            I will show a military ID, VA card, or DD-214 at the entrance.
+                        </label>
+                    </fieldset>
+
+                    <fieldset class="eligibility" data-admission="friday" hidden>
+                        <legend>Free Friday</legend>
+                        <div class="checkout-field-group">
+                            <label for="fri-name">Full Name</label>
+                            <input type="text" id="fri-name" class="checkout-field"
+                                   maxlength="100" autocomplete="off" required>
+                        </div>
+                        <p class="checkout-description">
+                            Free Friday tickets are only available on Fridays from 6–9 PM.
+                        </p>
+                    </fieldset>
+
+                    <div id="card-fields">
+                    <div class="checkout-field-group">
+                        <label for="card-name">Cardholder Name</label>
+                        <input type="text" id="card-name" class="checkout-field"
+                               placeholder="John Doe" maxlength="100" autocomplete="off" required>
                     </div>
 
                     <div class="checkout-field-group">
@@ -92,8 +231,11 @@
                                    placeholder="123" maxlength="4" inputmode="numeric" autocomplete="off" required>
                         </div>
                     </div>
+                    </div>
 
-                    <button type="submit" class="btn checkout-pay">Pay Now</button>
+                    <p class="eligibility-note" id="eligibility-note" hidden></p>
+
+                    <button type="submit" class="btn checkout-pay" id="pay-button">Pay Now</button>
                 </form>
 
                 <div id="payment-success" class="payment-success" style="display: none;">

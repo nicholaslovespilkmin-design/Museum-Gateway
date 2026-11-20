@@ -1,7 +1,5 @@
 "use strict";
 
-// Locations from wolfsonian.org/whats-on/exhibitions+installations/
-// Shared with recommendation.js, which only accepts an id from this list.
 const EXHIBITS = Object.freeze({
     "foot-notes": { name: "Foot Notes: Shoes, Symbolism, and Society", location: "7th Floor" },
     "material-matters": { name: "Material Matters: How Synthetics Shaped a New Era", location: "Knight Lab 3, 3rd Floor" },
@@ -13,9 +11,9 @@ const EXHIBITS = Object.freeze({
 
 (function () {
     const questionEl = document.getElementById("question");
-    if (!questionEl) return; // loaded on a page without the questionnaire
+    if (!questionEl) return; 
 
-    // Each question and the exhibit a "Yes" answer leads to
+
     const QUESTIONS = [
         { text: "Are you interested in fashion, identity, and personal style?", exhibit: "foot-notes" },
         { text: "Are you interested in materials, technology, and how things are made?", exhibit: "material-matters" },
@@ -43,7 +41,7 @@ const EXHIBITS = Object.freeze({
         const exhibit = EXHIBITS[exhibitId];
         questionEl.textContent = "We think you'll enjoy:";
 
-        // Built with DOM methods (no innerHTML) so text can never be run as HTML
+        
         const name = document.createElement("strong");
         name.textContent = exhibit.name;
         const parts = [name];
@@ -55,7 +53,7 @@ const EXHIBITS = Object.freeze({
             parts.push(place);
         }
 
-        // Only the exhibit id goes in the URL; the next page looks the details up itself
+        
         const link = document.createElement("a");
         link.href = "recomendation.html?exhibit=" + encodeURIComponent(exhibitId);
         link.className = "btn";

@@ -1,8 +1,5 @@
 "use strict";
 
-// Show the questionnaire result passed from questionare.html.
-// The URL only carries an exhibit id; anything not in EXHIBITS (questionnaire.js) is ignored,
-// so a crafted link cannot put arbitrary text on this page.
 (function () {
     const exhibitId = new URLSearchParams(window.location.search).get("exhibit");
     if (!exhibitId || !Object.prototype.hasOwnProperty.call(EXHIBITS, exhibitId)) return;

@@ -458,3 +458,11 @@ h2 { font-family: var(--font-serif); color: var(--navy); font-size: clamp(1.7rem
 .exhibit-location { margin: 14px 0 0; color: var(--muted); font-size: 1rem; letter-spacing: 0.04em; }
 .recommendation-result { margin: 0 0 28px; }
 .recommendation-result strong { display: inline-block; font-family: var(--font-serif); color: var(--navy); font-size: 1.4rem; padding: 14px 22px; background: var(--sky); border-radius: var(--radius); }
+
+/* ---------- Checkout: free-admission eligibility ---------- */
+.eligibility { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px 6px; margin: 0 0 18px; }
+.eligibility[hidden], #card-fields[hidden] { display: none; }
+.eligibility legend { padding: 0 8px; color: var(--gold); font-weight: 700; font-size: 0.95rem; }
+.checkout-check { display: flex; align-items: flex-start; gap: 10px; margin: 4px 0 14px; line-height: 1.45; cursor: pointer; }
+.checkout-check input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--gold); flex: none; }
+.eligibility-note { color: var(--gold); font-size: 0.92rem; line-height: 1.5; margin: 0 0 14px; }
